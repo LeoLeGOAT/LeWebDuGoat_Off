@@ -1,170 +1,237 @@
-const ADMIN_CODE="170713";
+body{
 
-let games=JSON.parse(localStorage.getItem("games"))||[];
-
-const gamesContainer=document.getElementById("games");
-
-
-function renderGames(){
-
-gamesContainer.innerHTML="";
-
-games.forEach((game,index)=>{
-
-let div=document.createElement("div");
-div.className="game";
-
-div.innerHTML=`
-
-<img src="${game.image}">
-
-<div class="gameContent">
-
-<h3>${game.title}</h3>
-
-<p>${game.description}</p>
-
-<div class="gameButtons">
-
-<button onclick="likeGame(${index})">👍 ${game.likes||0}</button>
-
-<button onclick="dislikeGame(${index})">👎 ${game.dislikes||0}</button>
-
-<button onclick="openGame('${game.url}')">▶️ Jouer</button>
-
-</div>
-
-</div>
-
-`;
-
-gamesContainer.appendChild(div);
-
-});
+background:#050505;
+color:white;
+font-family:Arial;
+margin:0;
 
 }
 
+/* HEADER */
 
-function openGame(url){
+header{
 
-document.getElementById("gameViewer").classList.remove("hidden");
-
-document.getElementById("gameFrame").src=url;
-
-}
-
-
-function closeGame(){
-
-document.getElementById("gameViewer").classList.add("hidden");
-
-document.getElementById("gameFrame").src="";
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:20px;
+background:#0b0b0b;
+border-bottom:3px solid #00ff88;
 
 }
 
+h1{
 
-function fullscreenGame(){
-
-let iframe=document.getElementById("gameFrame");
-
-if(iframe.requestFullscreen){
-
-iframe.requestFullscreen();
+color:#00ff88;
+font-size:28px;
 
 }
 
-}
+/* SEARCH */
 
+#searchBar{
 
-function addGame(){
-
-let title=document.getElementById("title").value;
-
-let image=document.getElementById("image").value;
-
-let url=document.getElementById("url").value;
-
-let description=document.getElementById("description").value;
-
-let game={
-
-title:title,
-
-image:image,
-
-url:url,
-
-description:description,
-
-likes:0,
-
-dislikes:0
-
-};
-
-games.push(game);
-
-localStorage.setItem("games",JSON.stringify(games));
-
-renderGames();
+padding:10px;
+border-radius:8px;
+border:none;
+background:#111;
+color:white;
+width:280px;
 
 }
 
+/* CATEGORIES */
 
-function likeGame(index){
+#categories{
 
-games[index].likes++;
-
-localStorage.setItem("games",JSON.stringify(games));
-
-renderGames();
-
-}
-
-
-function dislikeGame(index){
-
-games[index].dislikes++;
-
-localStorage.setItem("games",JSON.stringify(games));
-
-renderGames();
+display:flex;
+flex-wrap:wrap;
+gap:10px;
+padding:15px;
+justify-content:center;
+background:#0a0a0a;
 
 }
 
+#categories button{
 
-function searchGame(){
-
-let input=document.getElementById("searchBar").value.toLowerCase();
-
-let gameCards=document.querySelectorAll(".game");
-
-gameCards.forEach(card=>{
-
-let title=card.querySelector("h3").innerText.toLowerCase();
-
-card.style.display=title.includes(input)?"block":"none";
-
-});
+background:#111;
+border:1px solid #00ff88;
+color:#00ff88;
+padding:8px 16px;
+border-radius:20px;
+cursor:pointer;
+font-weight:bold;
 
 }
 
+#categories button:hover{
 
-document.getElementById("adminBtn").onclick=()=>{
-
-let code=prompt("Code admin");
-
-if(code===ADMIN_CODE){
-
-document.getElementById("adminPanel").classList.toggle("hidden");
-
-}else{
-
-alert("Code incorrect");
+background:#00ff88;
+color:black;
 
 }
 
-};
+/* GAME GRID */
 
+#games{
 
-renderGames();
+display:grid;
+grid-template-columns:repeat(auto-fill,minmax(240px,1fr));
+gap:25px;
+padding:25px;
+
+}
+
+/* GAME CARD */
+
+.game{
+
+background:#0d0d0d;
+border-radius:12px;
+overflow:hidden;
+border:1px solid #00ff8830;
+transition:0.3s;
+
+}
+
+.game:hover{
+
+transform:scale(1.05);
+border-color:#00ff88;
+
+}
+
+.game img{
+
+width:100%;
+height:140px;
+object-fit:cover;
+
+}
+
+.gameContent{
+
+padding:15px;
+
+}
+
+.gameContent h3{
+
+color:#00ff88;
+margin-bottom:5px;
+
+}
+
+.gameContent p{
+
+font-size:14px;
+opacity:0.8;
+
+}
+
+/* TAG */
+
+.categoryTag{
+
+display:inline-block;
+background:#00ff88;
+color:black;
+padding:4px 10px;
+border-radius:10px;
+font-size:12px;
+margin-top:5px;
+margin-bottom:10px;
+
+}
+
+/* BUTTONS */
+
+.gameButtons{
+
+display:flex;
+gap:8px;
+flex-wrap:wrap;
+
+}
+
+button{
+
+background:#111;
+border:1px solid #00ff88;
+color:#00ff88;
+padding:6px 10px;
+border-radius:6px;
+cursor:pointer;
+
+}
+
+button:hover{
+
+background:#00ff88;
+color:black;
+
+}
+
+/* GAME VIEWER */
+
+#gameViewer{
+
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:black;
+
+}
+
+#gameFrame{
+
+width:100%;
+height:92%;
+border:none;
+
+}
+
+.viewerTop{
+
+display:flex;
+justify-content:flex-end;
+gap:10px;
+padding:10px;
+background:#0a0a0a;
+
+}
+
+/* ADMIN */
+
+#adminPanel{
+
+position:fixed;
+bottom:20px;
+right:20px;
+background:#0c0c0c;
+border:1px solid #00ff88;
+padding:20px;
+border-radius:10px;
+width:280px;
+
+}
+
+#adminPanel input,
+#adminPanel textarea,
+#adminPanel select{
+
+width:100%;
+margin-bottom:10px;
+padding:8px;
+background:#111;
+border:none;
+color:white;
+
+}
+
+.hidden{
+display:none;
+}
