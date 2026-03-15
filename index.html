@@ -9,24 +9,43 @@
 <body>
 
 <header>
+
 <h1>🎮 GameHub</h1>
+
+<input id="searchBar" placeholder="🔎 Rechercher un jeu..." onkeyup="searchGame()">
+
 <button id="adminBtn">Admin</button>
+
 </header>
 
 <section id="games"></section>
 
+
 <div id="gameViewer" class="hidden">
-<button onclick="closeGame()">❌ Fermer</button>
-<iframe id="gameFrame"></iframe>
+
+<div class="viewerTop">
+
+<button onclick="fullscreenGame()">⛶ Plein écran</button>
+
+<button onclick="closeGame()">❌</button>
+
 </div>
+
+<iframe id="gameFrame"></iframe>
+
+</div>
+
 
 <div id="adminPanel" class="hidden">
 
 <h2>Ajouter un jeu</h2>
 
-<input id="title" placeholder="Titre du jeu">
-<input id="image" placeholder="URL de l'image">
+<input id="title" placeholder="Titre">
+
+<input id="image" placeholder="URL image">
+
 <input id="url" placeholder="URL du jeu">
+
 <textarea id="description" placeholder="Description"></textarea>
 
 <button onclick="addGame()">Ajouter</button>
