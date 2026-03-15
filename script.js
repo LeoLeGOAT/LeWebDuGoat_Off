@@ -4,7 +4,6 @@ let games=JSON.parse(localStorage.getItem("games"))||[];
 
 const gamesContainer=document.getElementById("games");
 
-
 function renderGames(){
 
 gamesContainer.innerHTML="";
@@ -12,6 +11,7 @@ gamesContainer.innerHTML="";
 games.forEach((game,index)=>{
 
 let div=document.createElement("div");
+
 div.className="game";
 
 div.innerHTML=`
@@ -26,13 +26,15 @@ div.innerHTML=`
 
 <div class="categoryTag">${game.category}</div>
 
+<div>👥 Joueurs : ${game.plays||0}</div>
+
 <div class="gameButtons">
 
 <button onclick="likeGame(${index})">👍 ${game.likes||0}</button>
 
 <button onclick="dislikeGame(${index})">👎 ${game.dislikes||0}</button>
 
-<button onclick="openGame('${game.url}')">▶️ Jouer</button>
+<button onclick="playGame(${index})">▶️ Jouer</button>
 
 </div>
 
@@ -43,6 +45,19 @@ div.innerHTML=`
 gamesContainer.appendChild(div);
 
 });
+
+}
+
+
+function playGame(index){
+
+games[index].plays=(games[index].plays||0)+1;
+
+localStorage.setItem("games",JSON.stringify(games));
+
+openGame(games[index].url);
+
+renderGames();
 
 }
 
@@ -70,7 +85,9 @@ function fullscreenGame(){
 let iframe=document.getElementById("gameFrame");
 
 if(iframe.requestFullscreen){
+
 iframe.requestFullscreen();
+
 }
 
 }
@@ -96,7 +113,8 @@ url:url,
 description:description,
 category:category,
 likes:0,
-dislikes:0
+dislikes:0,
+plays:0
 
 };
 
@@ -159,9 +177,13 @@ let cards=document.querySelectorAll(".game");
 cards.forEach((card,i)=>{
 
 if(cat==="all"){
+
 card.style.display="block";
+
 }else{
+
 card.style.display=games[i].category===cat?"block":"none";
+
 }
 
 });
