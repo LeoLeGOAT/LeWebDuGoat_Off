@@ -5,7 +5,6 @@
 
 <meta charset="UTF-8">
 <title>GameHub</title>
-
 <link rel="stylesheet" href="style.css">
 
 </head>
@@ -18,14 +17,15 @@
 
 <input id="searchBar" placeholder="🔎 Rechercher un jeu..." onkeyup="searchGame()">
 
-<button class="adminBtn" onclick="openAdmin()">Admin</button>
+<button onclick="openAdmin()">Admin</button>
 
 </header>
 
 
 <div id="categories">
 
-<button onclick="filterCategory('all')">Tous</button>
+<button onclick="showAll()">Tous</button>
+
 <button onclick="filterCategory('Course')">🏎️ Course</button>
 <button onclick="filterCategory('Arcade')">🕹️ Arcade</button>
 <button onclick="filterCategory('Puzzle')">🧩 Puzzle</button>
@@ -46,7 +46,6 @@
 <div class="viewerTop">
 
 <button onclick="fullscreenGame()">⛶ Plein écran</button>
-
 <button onclick="closeGame()">✖</button>
 
 </div>
@@ -58,15 +57,9 @@
 
 <div id="adminPanel" class="hidden">
 
-<div class="adminHeader">
+<h2>⚙ Ajouter un jeu</h2>
 
-<h2>⚙ Admin Panel</h2>
-
-<button onclick="closeAdmin()">✖</button>
-
-</div>
-
-<input id="title" placeholder="Titre du jeu">
+<input id="title" placeholder="Titre">
 
 <input type="file" id="imageUpload">
 
@@ -87,10 +80,11 @@
 
 <textarea id="description" placeholder="Description"></textarea>
 
-<button class="addGameBtn" onclick="addGame()">➕ Ajouter le jeu</button>
+<button onclick="addGame()">Ajouter</button>
+
+<button onclick="closeAdmin()">Fermer</button>
 
 </div>
-
 
 <script src="script.js"></script>
 
