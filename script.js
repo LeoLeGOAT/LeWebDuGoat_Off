@@ -2,6 +2,8 @@ const ADMIN_CODE="170713";
 
 let games=[];
 
+let admin=false;
+
 const gamesContainer=document.getElementById("games");
 
 
@@ -30,6 +32,8 @@ div.innerHTML=`
 <div>👥 ${game.plays||0} joueurs</div>
 
 <button onclick="playGame(${index})">▶ Jouer</button>
+
+${admin ? `<button class="deleteBtn" onclick="deleteGame(${index})">🗑 Supprimer</button>` : ""}
 
 </div>
 
@@ -107,6 +111,19 @@ reader.readAsDataURL(file);
 }
 
 
+function deleteGame(index){
+
+if(confirm("Supprimer ce jeu ?")){
+
+games.splice(index,1);
+
+renderGames();
+
+}
+
+}
+
+
 function filterCategory(cat){
 
 let filtered=games.filter(game=>game.category===cat);
@@ -140,7 +157,15 @@ let code=prompt("Code admin");
 
 if(code===ADMIN_CODE){
 
+admin=true;
+
 document.getElementById("adminPanel").classList.remove("hidden");
+
+renderGames();
+
+}else{
+
+alert("Code incorrect");
 
 }
 
