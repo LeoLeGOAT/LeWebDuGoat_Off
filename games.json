@@ -1,0 +1,22 @@
+[
+  {
+    "title": "Exemple Course",
+    "image": "https://via.placeholder.com/220x130.png?text=Course",
+    "url": "https://example.com/jeu1",
+    "description": "Un jeu de course fun",
+    "category": "Course",
+    "likes": 0,
+    "dislikes": 0,
+    "plays": 0
+  },
+  {
+    "title": "Exemple Arcade",
+    "image": "https://via.placeholder.com/220x130.png?text=Arcade",
+    "url": "https://example.com/jeu2",
+    "description": "Un jeu arcade classique",
+    "category": "Arcade",
+    "likes": 0,
+    "dislikes": 0,
+    "plays": 0
+  }
+]
