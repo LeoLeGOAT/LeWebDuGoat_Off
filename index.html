@@ -14,11 +14,11 @@
 
 <header>
 
-<h1>🟢 GameHub</h1>
+<h1>🎮 GameHub</h1>
 
 <input id="searchBar" placeholder="🔎 Rechercher un jeu..." onkeyup="searchGame()">
 
-<button id="adminBtn">Admin</button>
+<button class="adminBtn" onclick="openAdmin()">Admin</button>
 
 </header>
 
@@ -46,7 +46,8 @@
 <div class="viewerTop">
 
 <button onclick="fullscreenGame()">⛶ Plein écran</button>
-<button onclick="closeGame()">❌</button>
+
+<button onclick="closeGame()">✖</button>
 
 </div>
 
@@ -57,9 +58,15 @@
 
 <div id="adminPanel" class="hidden">
 
-<h2>Ajouter un jeu</h2>
+<div class="adminHeader">
 
-<input id="title" placeholder="Titre">
+<h2>⚙ Admin Panel</h2>
+
+<button onclick="closeAdmin()">✖</button>
+
+</div>
+
+<input id="title" placeholder="Titre du jeu">
 
 <input type="file" id="imageUpload">
 
@@ -72,7 +79,7 @@
 <option value="Puzzle">🧩 Puzzle</option>
 <option value="E-sports">🏆 E-sports</option>
 <option value="Jeux.io">🌐 Jeux.io</option>
-<option value="Jeux Roblox">🧱 Jeux Roblox</option>
+<option value="Jeux Roblox">🧱 Roblox</option>
 <option value="Multijoueurs">👥 Multijoueurs</option>
 <option value="Tendances">🔥 Tendances</option>
 
@@ -80,7 +87,7 @@
 
 <textarea id="description" placeholder="Description"></textarea>
 
-<button onclick="addGame()">Ajouter</button>
+<button class="addGameBtn" onclick="addGame()">➕ Ajouter le jeu</button>
 
 </div>
 
