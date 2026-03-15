@@ -1,22 +1,42 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
+
 <meta charset="UTF-8">
 <title>GameHub</title>
+
 <link rel="stylesheet" href="style.css">
+
 </head>
 
 <body>
 
 <header>
 
-<h1>🎮 GameHub</h1>
+<h1>🟢 GameHub</h1>
 
 <input id="searchBar" placeholder="🔎 Rechercher un jeu..." onkeyup="searchGame()">
 
 <button id="adminBtn">Admin</button>
 
 </header>
+
+
+<div id="categories">
+
+<button onclick="filterCategory('all')">Tous</button>
+<button onclick="filterCategory('Course')">🏎️ Course</button>
+<button onclick="filterCategory('Arcade')">🕹️ Arcade</button>
+<button onclick="filterCategory('Puzzle')">🧩 Puzzle</button>
+<button onclick="filterCategory('E-sports')">🏆 E-sports</button>
+<button onclick="filterCategory('Jeux.io')">🌐 Jeux.io</button>
+<button onclick="filterCategory('Jeux Roblox')">🧱 Roblox</button>
+<button onclick="filterCategory('Multijoueurs')">👥 Multijoueurs</button>
+<button onclick="filterCategory('Tendances')">🔥 Tendances</button>
+
+</div>
+
 
 <section id="games"></section>
 
@@ -26,7 +46,6 @@
 <div class="viewerTop">
 
 <button onclick="fullscreenGame()">⛶ Plein écran</button>
-
 <button onclick="closeGame()">❌</button>
 
 </div>
@@ -42,15 +61,29 @@
 
 <input id="title" placeholder="Titre">
 
-<input id="image" placeholder="URL image">
+<input type="file" id="imageUpload">
 
 <input id="url" placeholder="URL du jeu">
+
+<select id="category">
+
+<option value="Course">🏎️ Course</option>
+<option value="Arcade">🕹️ Arcade</option>
+<option value="Puzzle">🧩 Puzzle</option>
+<option value="E-sports">🏆 E-sports</option>
+<option value="Jeux.io">🌐 Jeux.io</option>
+<option value="Jeux Roblox">🧱 Jeux Roblox</option>
+<option value="Multijoueurs">👥 Multijoueurs</option>
+<option value="Tendances">🔥 Tendances</option>
+
+</select>
 
 <textarea id="description" placeholder="Description"></textarea>
 
 <button onclick="addGame()">Ajouter</button>
 
 </div>
+
 
 <script src="script.js"></script>
 
