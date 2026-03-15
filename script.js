@@ -24,6 +24,8 @@ div.innerHTML=`
 
 <p>${game.description}</p>
 
+<div class="categoryTag">${game.category}</div>
+
 <div class="gameButtons">
 
 <button onclick="likeGame(${index})">👍 ${game.likes||0}</button>
@@ -68,9 +70,7 @@ function fullscreenGame(){
 let iframe=document.getElementById("gameFrame");
 
 if(iframe.requestFullscreen){
-
 iframe.requestFullscreen();
-
 }
 
 }
@@ -79,25 +79,23 @@ iframe.requestFullscreen();
 function addGame(){
 
 let title=document.getElementById("title").value;
-
-let image=document.getElementById("image").value;
-
+let file=document.getElementById("imageUpload").files[0];
 let url=document.getElementById("url").value;
-
 let description=document.getElementById("description").value;
+let category=document.getElementById("category").value;
+
+let reader=new FileReader();
+
+reader.onload=function(e){
 
 let game={
 
 title:title,
-
-image:image,
-
+image:e.target.result,
 url:url,
-
 description:description,
-
+category:category,
 likes:0,
-
 dislikes:0
 
 };
@@ -108,12 +106,16 @@ localStorage.setItem("games",JSON.stringify(games));
 
 renderGames();
 
+};
+
+reader.readAsDataURL(file);
+
 }
 
 
-function likeGame(index){
+function likeGame(i){
 
-games[index].likes++;
+games[i].likes++;
 
 localStorage.setItem("games",JSON.stringify(games));
 
@@ -122,9 +124,9 @@ renderGames();
 }
 
 
-function dislikeGame(index){
+function dislikeGame(i){
 
-games[index].dislikes++;
+games[i].dislikes++;
 
 localStorage.setItem("games",JSON.stringify(games));
 
@@ -137,13 +139,30 @@ function searchGame(){
 
 let input=document.getElementById("searchBar").value.toLowerCase();
 
-let gameCards=document.querySelectorAll(".game");
+let cards=document.querySelectorAll(".game");
 
-gameCards.forEach(card=>{
+cards.forEach(card=>{
 
 let title=card.querySelector("h3").innerText.toLowerCase();
 
 card.style.display=title.includes(input)?"block":"none";
+
+});
+
+}
+
+
+function filterCategory(cat){
+
+let cards=document.querySelectorAll(".game");
+
+cards.forEach((card,i)=>{
+
+if(cat==="all"){
+card.style.display="block";
+}else{
+card.style.display=games[i].category===cat?"block":"none";
+}
 
 });
 
