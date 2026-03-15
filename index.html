@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>GameHub</title>
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<header>
+<h1>🎮 GameHub</h1>
+<button id="adminBtn">Admin</button>
+</header>
+
+<section id="games"></section>
+
+<div id="gameViewer" class="hidden">
+<button onclick="closeGame()">❌ Fermer</button>
+<iframe id="gameFrame"></iframe>
+</div>
+
+<div id="adminPanel" class="hidden">
+
+<h2>Ajouter un jeu</h2>
+
+<input id="title" placeholder="Titre du jeu">
+<input id="image" placeholder="URL de l'image">
+<input id="url" placeholder="URL du jeu">
+<textarea id="description" placeholder="Description"></textarea>
+
+<button onclick="addGame()">Ajouter</button>
+
+</div>
+
+<script src="script.js"></script>
+
+</body>
+</html>
