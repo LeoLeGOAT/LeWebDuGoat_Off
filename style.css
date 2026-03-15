@@ -1,6 +1,6 @@
 body{
 
-background:#050505;
+background:#0a0a0a;
 color:white;
 font-family:Arial;
 margin:0;
@@ -12,10 +12,10 @@ margin:0;
 header{
 
 display:flex;
-justify-content:space-between;
 align-items:center;
-padding:20px;
-background:#0b0b0b;
+justify-content:space-between;
+padding:15px 25px;
+background:#111;
 border-bottom:3px solid #00ff88;
 
 }
@@ -23,20 +23,27 @@ border-bottom:3px solid #00ff88;
 h1{
 
 color:#00ff88;
-font-size:28px;
 
 }
-
-/* SEARCH */
 
 #searchBar{
 
 padding:10px;
 border-radius:8px;
 border:none;
-background:#111;
+background:#1a1a1a;
 color:white;
-width:280px;
+width:250px;
+
+}
+
+.adminBtn{
+
+background:#00ff88;
+border:none;
+padding:8px 15px;
+border-radius:6px;
+font-weight:bold;
 
 }
 
@@ -49,56 +56,45 @@ flex-wrap:wrap;
 gap:10px;
 padding:15px;
 justify-content:center;
-background:#0a0a0a;
 
 }
 
 #categories button{
 
-background:#111;
+background:#1a1a1a;
 border:1px solid #00ff88;
 color:#00ff88;
-padding:8px 16px;
+padding:7px 14px;
 border-radius:20px;
-cursor:pointer;
-font-weight:bold;
 
 }
 
-#categories button:hover{
-
-background:#00ff88;
-color:black;
-
-}
-
-/* GAME GRID */
+/* GRID */
 
 #games{
 
 display:grid;
 grid-template-columns:repeat(auto-fill,minmax(240px,1fr));
-gap:25px;
-padding:25px;
+gap:20px;
+padding:20px;
 
 }
 
-/* GAME CARD */
+/* CARD */
 
 .game{
 
-background:#0d0d0d;
+background:#111;
 border-radius:12px;
 overflow:hidden;
-border:1px solid #00ff8830;
-transition:0.3s;
+transition:0.2s;
 
 }
 
 .game:hover{
 
-transform:scale(1.05);
-border-color:#00ff88;
+transform:translateY(-5px);
+box-shadow:0 0 10px #00ff8840;
 
 }
 
@@ -112,35 +108,24 @@ object-fit:cover;
 
 .gameContent{
 
-padding:15px;
+padding:12px;
 
 }
 
 .gameContent h3{
 
 color:#00ff88;
-margin-bottom:5px;
 
 }
-
-.gameContent p{
-
-font-size:14px;
-opacity:0.8;
-
-}
-
-/* TAG */
 
 .categoryTag{
 
 display:inline-block;
 background:#00ff88;
 color:black;
-padding:4px 10px;
+padding:3px 10px;
 border-radius:10px;
 font-size:12px;
-margin-top:5px;
 margin-bottom:10px;
 
 }
@@ -150,26 +135,18 @@ margin-bottom:10px;
 .gameButtons{
 
 display:flex;
-gap:8px;
+gap:5px;
 flex-wrap:wrap;
 
 }
 
 button{
 
-background:#111;
+background:#1a1a1a;
 border:1px solid #00ff88;
 color:#00ff88;
-padding:6px 10px;
-border-radius:6px;
-cursor:pointer;
-
-}
-
-button:hover{
-
-background:#00ff88;
-color:black;
+padding:5px 8px;
+border-radius:5px;
 
 }
 
@@ -198,24 +175,30 @@ border:none;
 
 display:flex;
 justify-content:flex-end;
-gap:10px;
 padding:10px;
-background:#0a0a0a;
 
 }
 
-/* ADMIN */
+/* ADMIN PANEL */
 
 #adminPanel{
 
 position:fixed;
 bottom:20px;
 right:20px;
-background:#0c0c0c;
-border:1px solid #00ff88;
+background:#111;
+border:2px solid #00ff88;
 padding:20px;
 border-radius:10px;
-width:280px;
+width:300px;
+
+}
+
+.adminHeader{
+
+display:flex;
+justify-content:space-between;
+margin-bottom:10px;
 
 }
 
@@ -226,12 +209,22 @@ width:280px;
 width:100%;
 margin-bottom:10px;
 padding:8px;
-background:#111;
+background:#1a1a1a;
 border:none;
 color:white;
 
 }
 
+.addGameBtn{
+
+background:#00ff88;
+color:black;
+font-weight:bold;
+
+}
+
 .hidden{
+
 display:none;
+
 }
