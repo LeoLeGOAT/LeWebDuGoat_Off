@@ -1,6 +1,6 @@
 const ADMIN_CODE="170713";
 
-let games=JSON.parse(localStorage.getItem("games"))||[];
+let games=[];
 
 const gamesContainer=document.getElementById("games");
 
@@ -11,7 +11,6 @@ gamesContainer.innerHTML="";
 games.forEach((game,index)=>{
 
 let div=document.createElement("div");
-
 div.className="game";
 
 div.innerHTML=`
@@ -22,11 +21,11 @@ div.innerHTML=`
 
 <h3>${game.title}</h3>
 
-<p>${game.description}</p>
-
 <div class="categoryTag">${game.category}</div>
 
-<div>👥 Joueurs : ${game.plays||0}</div>
+<p>${game.description}</p>
+
+<div>👥 ${game.plays||0} joueurs</div>
 
 <div class="gameButtons">
 
@@ -34,7 +33,7 @@ div.innerHTML=`
 
 <button onclick="dislikeGame(${index})">👎 ${game.dislikes||0}</button>
 
-<button onclick="playGame(${index})">▶️ Jouer</button>
+<button onclick="playGame(${index})">▶ Jouer</button>
 
 </div>
 
@@ -52,8 +51,6 @@ gamesContainer.appendChild(div);
 function playGame(index){
 
 games[index].plays=(games[index].plays||0)+1;
-
-localStorage.setItem("games",JSON.stringify(games));
 
 openGame(games[index].url);
 
@@ -120,8 +117,6 @@ plays:0
 
 games.push(game);
 
-localStorage.setItem("games",JSON.stringify(games));
-
 renderGames();
 
 };
@@ -135,18 +130,13 @@ function likeGame(i){
 
 games[i].likes++;
 
-localStorage.setItem("games",JSON.stringify(games));
-
 renderGames();
 
 }
 
-
 function dislikeGame(i){
 
 games[i].dislikes++;
-
-localStorage.setItem("games",JSON.stringify(games));
 
 renderGames();
 
@@ -191,13 +181,13 @@ card.style.display=games[i].category===cat?"block":"none";
 }
 
 
-document.getElementById("adminBtn").onclick=()=>{
+function openAdmin(){
 
 let code=prompt("Code admin");
 
 if(code===ADMIN_CODE){
 
-document.getElementById("adminPanel").classList.toggle("hidden");
+document.getElementById("adminPanel").classList.remove("hidden");
 
 }else{
 
@@ -205,7 +195,10 @@ alert("Code incorrect");
 
 }
 
-};
+}
 
+function closeAdmin(){
 
-renderGames();
+document.getElementById("adminPanel").classList.add("hidden");
+
+}
