@@ -1,93 +1,263 @@
-<!DOCTYPE html>
-<html lang="fr">
+/*============================*/
+/*      STYLE GLOBAL          */
+/*============================*/
 
-<head>
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Arial', sans-serif;
+    background-color: #0a0a0a; /* noir profond */
+    color: #00ff00; /* vert fluo Unchained */
+}
 
-<meta charset="UTF-8">
-<title>GameHub</title>
-<link rel="stylesheet" href="style.css">
+a {
+    color: #00ff00;
+    text-decoration: none;
+}
 
-</head>
+a:hover {
+    color: #00cc00;
+}
 
-<body>
+/*============================*/
+/*      HEADER                */
+/*============================*/
 
-<header>
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #111;
+    padding: 15px 25px;
+    border-bottom: 2px solid #00ff00;
+}
 
-<h1>🎮 GameHub</h1>
+header h1 {
+    font-size: 2rem;
+    color: #00ff00;
+    margin: 0;
+}
 
-<input id="searchBar" placeholder="🔎 Rechercher un jeu..." onkeyup="searchGame()">
+header input {
+    padding: 5px 10px;
+    border: 1px solid #00ff00;
+    background-color: #111;
+    color: #00ff00;
+    outline: none;
+    border-radius: 4px;
+}
 
-<button onclick="openAdmin()">Admin</button>
+header input::placeholder {
+    color: #0f0;
+}
 
-</header>
+header button {
+    padding: 5px 12px;
+    border: 1px solid #00ff00;
+    background-color: #111;
+    color: #00ff00;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: 0.2s;
+}
 
+header button:hover {
+    background-color: #00ff00;
+    color: #111;
+}
 
-<div id="categories">
+/*============================*/
+/*      CATEGORIES            */
+/*============================*/
 
-<button onclick="showAll()">Tous</button>
+#categories {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 10px 20px;
+    gap: 10px;
+    background-color: #111;
+    border-bottom: 2px solid #00ff00;
+}
 
-<button onclick="filterCategory('Course')">🏎️ Course</button>
-<button onclick="filterCategory('Arcade')">🕹️ Arcade</button>
-<button onclick="filterCategory('Puzzle')">🧩 Puzzle</button>
-<button onclick="filterCategory('E-sports')">🏆 E-sports</button>
-<button onclick="filterCategory('Jeux.io')">🌐 Jeux.io</button>
-<button onclick="filterCategory('Jeux Roblox')">🧱 Roblox</button>
-<button onclick="filterCategory('Multijoueurs')">👥 Multijoueurs</button>
-<button onclick="filterCategory('Tendances')">🔥 Tendances</button>
+#categories button {
+    padding: 5px 12px;
+    border: 1px solid #00ff00;
+    background-color: #111;
+    color: #00ff00;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: 0.2s;
+}
 
-</div>
+#categories button:hover {
+    background-color: #00ff00;
+    color: #111;
+}
 
+/*============================*/
+/*      JEUX                  */
+/*============================*/
 
-<section id="games"></section>
+#games {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+    padding: 20px;
+}
 
+.game {
+    background-color: #111;
+    border: 2px solid #00ff00;
+    border-radius: 8px;
+    overflow: hidden;
+    transition: 0.2s;
+}
 
-<div id="gameViewer" class="hidden">
+.game:hover {
+    transform: scale(1.02);
+    box-shadow: 0 0 15px #00ff00;
+}
 
-<div class="viewerTop">
+.game img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    border-bottom: 2px solid #00ff00;
+}
 
-<button onclick="fullscreenGame()">⛶ Plein écran</button>
-<button onclick="closeGame()">✖</button>
+.gameContent {
+    padding: 10px;
+}
 
-</div>
+.gameContent h3 {
+    margin: 5px 0;
+    color: #00ff00;
+}
 
-<iframe id="gameFrame"></iframe>
+.gameContent p {
+    font-size: 0.9rem;
+    color: #0f0;
+}
 
-</div>
+.gameContent .tag {
+    display: inline-block;
+    background-color: #0a0a0a;
+    border: 1px solid #00ff00;
+    color: #00ff00;
+    padding: 2px 6px;
+    margin-bottom: 5px;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 0.8rem;
+}
 
+.gameContent button {
+    margin-top: 5px;
+    padding: 5px 10px;
+    border: 1px solid #00ff00;
+    background-color: #111;
+    color: #00ff00;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: 0.2s;
+}
 
-<div id="adminPanel" class="hidden">
+.gameContent button:hover {
+    background-color: #00ff00;
+    color: #111;
+}
 
-<h2>⚙ Ajouter un jeu</h2>
+/*============================*/
+/*      GAME VIEWER           */
+/*============================*/
 
-<input id="title" placeholder="Titre">
+#gameViewer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.95);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 999;
+}
 
-<input type="file" id="imageUpload">
+#gameViewer.hidden {
+    display: none;
+}
 
-<input id="url" placeholder="URL du jeu">
+#gameViewer iframe {
+    width: 80%;
+    height: 80%;
+    border: none;
+    border: 2px solid #00ff00;
+    border-radius: 8px;
+}
 
-<select id="category">
+.viewerTop {
+    width: 80%;
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 10px;
+}
 
-<option value="Course">🏎️ Course</option>
-<option value="Arcade">🕹️ Arcade</option>
-<option value="Puzzle">🧩 Puzzle</option>
-<option value="E-sports">🏆 E-sports</option>
-<option value="Jeux.io">🌐 Jeux.io</option>
-<option value="Jeux Roblox">🧱 Roblox</option>
-<option value="Multijoueurs">👥 Multijoueurs</option>
-<option value="Tendances">🔥 Tendances</option>
+.viewerTop button {
+    margin-left: 10px;
+}
 
-</select>
+/*============================*/
+/*      ADMIN PANEL           */
+/*============================*/
 
-<textarea id="description" placeholder="Description"></textarea>
+#adminPanel {
+    position: fixed;
+    top: 10%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #111;
+    border: 2px solid #00ff00;
+    border-radius: 10px;
+    padding: 20px;
+    width: 400px;
+    z-index: 1000;
+}
 
-<button onclick="addGame()">Ajouter le jeu</button>
+#adminPanel.hidden {
+    display: none;
+}
 
-<button onclick="closeAdmin()">Fermer</button>
+#adminPanel h2 {
+    color: #00ff00;
+    text-align: center;
+}
 
-</div>
+#adminPanel input, #adminPanel select, #adminPanel textarea {
+    width: 100%;
+    margin: 5px 0;
+    padding: 5px;
+    border: 1px solid #00ff00;
+    border-radius: 4px;
+    background-color: #111;
+    color: #00ff00;
+    outline: none;
+}
 
+#adminPanel button {
+    margin-top: 10px;
+    width: 100%;
+    padding: 7px;
+    border: 1px solid #00ff00;
+    border-radius: 4px;
+    background-color: #111;
+    color: #00ff00;
+    cursor: pointer;
+    transition: 0.2s;
+}
 
-<script src="script.js"></script>
-
-</body>
-</html>
+#adminPanel button:hover {
+    background-color: #00ff00;
+    color: #111;
+}
