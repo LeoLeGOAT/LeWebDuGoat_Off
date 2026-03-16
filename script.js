@@ -1,182 +1,169 @@
-const ADMIN_CODE="170713";
+const ADMIN_CODE = "170713";
 
-let games=[];
+let games = [];
+let admin = false;
 
-let admin=false;
+let gamesContainer;
 
-const gamesContainer=document.getElementById("games");
-
-
-function renderGames(list=games){
-
-gamesContainer.innerHTML="";
-
-list.forEach((game,index)=>{
-
-let div=document.createElement("div");
-
-div.className="game";
-
-div.innerHTML=`
-
-<img src="${game.image}">
-
-<div class="gameContent">
-
-<h3>${game.title}</h3>
-
-<div class="tag" onclick="filterCategory('${game.category}')">${game.category}</div>
-
-<p>${game.description}</p>
-
-<div>👥 ${game.plays||0} joueurs</div>
-
-<button onclick="playGame(${index})">▶ Jouer</button>
-
-${admin ? `<button class="deleteBtn" onclick="deleteGame(${index})">🗑 Supprimer</button>` : ""}
-
-</div>
-
-`;
-
-gamesContainer.appendChild(div);
-
+document.addEventListener("DOMContentLoaded", () => {
+    gamesContainer = document.getElementById("games");
+    renderGames();
 });
 
-}
+function renderGames(list = games) {
 
+    gamesContainer.innerHTML = "";
 
-function playGame(index){
+    list.forEach((game, index) => {
 
-games[index].plays=(games[index].plays||0)+1;
+        let div = document.createElement("div");
+        div.className = "game";
 
-document.getElementById("gameViewer").classList.remove("hidden");
+        div.innerHTML = `
+        <img src="${game.image}">
 
-document.getElementById("gameFrame").src=games[index].url;
+        <div class="gameContent">
+            <h3>${game.title}</h3>
 
-}
+            <div class="tag" onclick="filterCategory('${game.category}')">
+            ${game.category}
+            </div>
 
+            <p>${game.description}</p>
 
-function closeGame(){
+            <div>👥 ${game.plays || 0} joueurs</div>
 
-document.getElementById("gameViewer").classList.add("hidden");
+            <button onclick="playGame(${index})">▶ Jouer</button>
 
-document.getElementById("gameFrame").src="";
+            ${admin ? `<button class="deleteBtn" onclick="deleteGame(${index})">🗑 Supprimer</button>` : ""}
+        </div>
+        `;
 
-}
+        gamesContainer.appendChild(div);
 
-
-function fullscreenGame(){
-
-document.getElementById("gameFrame").requestFullscreen();
-
-}
-
-
-function addGame(){
-
-let title=document.getElementById("title").value;
-
-let file=document.getElementById("imageUpload").files[0];
-
-let url=document.getElementById("url").value;
-
-let description=document.getElementById("description").value;
-
-let category=document.getElementById("category").value;
-
-let reader=new FileReader();
-
-reader.onload=function(e){
-
-let game={
-
-title:title,
-image:e.target.result,
-url:url,
-description:description,
-category:category,
-plays:0
-
-};
-
-games.unshift(game);
-
-renderGames();
-
-};
-
-reader.readAsDataURL(file);
+    });
 
 }
 
+function playGame(index) {
 
-function deleteGame(index){
+    games[index].plays = (games[index].plays || 0) + 1;
 
-if(confirm("Supprimer ce jeu ?")){
-
-games.splice(index,1);
-
-renderGames();
+    document.getElementById("gameViewer").classList.remove("hidden");
+    document.getElementById("gameFrame").src = games[index].url;
 
 }
 
-}
+function closeGame() {
 
-
-function filterCategory(cat){
-
-let filtered=games.filter(game=>game.category===cat);
-
-renderGames(filtered);
+    document.getElementById("gameViewer").classList.add("hidden");
+    document.getElementById("gameFrame").src = "";
 
 }
 
+function fullscreenGame() {
 
-function showAll(){
-
-renderGames();
-
-}
-
-
-function searchGame(){
-
-let input=document.getElementById("searchBar").value.toLowerCase();
-
-let filtered=games.filter(g=>g.title.toLowerCase().includes(input));
-
-renderGames(filtered);
+    document.getElementById("gameFrame").requestFullscreen();
 
 }
 
+function addGame() {
 
-function openAdmin(){
+    let title = document.getElementById("title").value;
+    let file = document.getElementById("imageUpload").files[0];
+    let url = document.getElementById("url").value;
+    let description = document.getElementById("description").value;
+    let category = document.getElementById("category").value;
 
-let code=prompt("Code admin");
+    if (!file) {
+        alert("Ajoute une image");
+        return;
+    }
 
-if(code===ADMIN_CODE){
+    let reader = new FileReader();
 
-admin=true;
+    reader.onload = function (e) {
 
-document.getElementById("adminPanel").classList.remove("hidden");
+        let game = {
+            title: title,
+            image: e.target.result,
+            url: url,
+            description: description,
+            category: category,
+            plays: 0
+        };
 
-renderGames();
+        games.unshift(game);
+        renderGames();
 
-}else{
+    };
 
-alert("Code incorrect");
+    reader.readAsDataURL(file);
 
 }
 
+function deleteGame(index) {
+
+    if (confirm("Supprimer ce jeu ?")) {
+
+        games.splice(index, 1);
+        renderGames();
+
+    }
+
 }
 
+function filterCategory(cat) {
 
-function closeAdmin(){
-
-document.getElementById("adminPanel").classList.add("hidden");
+    let filtered = games.filter(game => game.category === cat);
+    renderGames(filtered);
 
 }
 
+function showAll() {
 
-renderGames();
+    renderGames();
+
+}
+
+function searchGame() {
+
+    let input = document.getElementById("searchBar").value.toLowerCase();
+
+    let filtered = games.filter(g =>
+        g.title.toLowerCase().includes(input)
+    );
+
+    renderGames(filtered);
+
+}
+
+function openAdmin() {
+
+    let code = prompt("Code admin");
+
+    if (code === ADMIN_CODE) {
+
+        admin = true;
+
+        document
+            .getElementById("adminPanel")
+            .classList.remove("hidden");
+
+        renderGames();
+
+    } else {
+
+        alert("Code incorrect");
+
+    }
+
+}
+
+function closeAdmin() {
+
+    document
+        .getElementById("adminPanel")
+        .classList.add("hidden");
+
+}
