@@ -1,182 +1,93 @@
-const ADMIN_CODE="170713";
+<!DOCTYPE html>
+<html lang="fr">
 
-let games=[];
+<head>
 
-let admin=false;
+<meta charset="UTF-8">
+<title>GameHub</title>
+<link rel="stylesheet" href="style.css">
 
-const gamesContainer=document.getElementById("games");
+</head>
+
+<body>
+
+<header>
+
+<h1>🎮 GameHub</h1>
+
+<input id="searchBar" placeholder="🔎 Rechercher un jeu..." onkeyup="searchGame()">
+
+<button onclick="openAdmin()">Admin</button>
+
+</header>
 
 
-function renderGames(list=games){
+<div id="categories">
 
-gamesContainer.innerHTML="";
+<button onclick="showAll()">Tous</button>
 
-list.forEach((game,index)=>{
-
-let div=document.createElement("div");
-
-div.className="game";
-
-div.innerHTML=`
-
-<img src="${game.image}">
-
-<div class="gameContent">
-
-<h3>${game.title}</h3>
-
-<div class="tag" onclick="filterCategory('${game.category}')">${game.category}</div>
-
-<p>${game.description}</p>
-
-<div>👥 ${game.plays||0} joueurs</div>
-
-<button onclick="playGame(${index})">▶ Jouer</button>
-
-${admin ? `<button class="deleteBtn" onclick="deleteGame(${index})">🗑 Supprimer</button>` : ""}
+<button onclick="filterCategory('Course')">🏎️ Course</button>
+<button onclick="filterCategory('Arcade')">🕹️ Arcade</button>
+<button onclick="filterCategory('Puzzle')">🧩 Puzzle</button>
+<button onclick="filterCategory('E-sports')">🏆 E-sports</button>
+<button onclick="filterCategory('Jeux.io')">🌐 Jeux.io</button>
+<button onclick="filterCategory('Jeux Roblox')">🧱 Roblox</button>
+<button onclick="filterCategory('Multijoueurs')">👥 Multijoueurs</button>
+<button onclick="filterCategory('Tendances')">🔥 Tendances</button>
 
 </div>
 
-`;
 
-gamesContainer.appendChild(div);
+<section id="games"></section>
 
-});
 
-}
+<div id="gameViewer" class="hidden">
 
+<div class="viewerTop">
 
-function playGame(index){
+<button onclick="fullscreenGame()">⛶ Plein écran</button>
+<button onclick="closeGame()">✖</button>
 
-games[index].plays=(games[index].plays||0)+1;
+</div>
 
-document.getElementById("gameViewer").classList.remove("hidden");
+<iframe id="gameFrame"></iframe>
 
-document.getElementById("gameFrame").src=games[index].url;
+</div>
 
-}
 
+<div id="adminPanel" class="hidden">
 
-function closeGame(){
+<h2>⚙ Ajouter un jeu</h2>
 
-document.getElementById("gameViewer").classList.add("hidden");
+<input id="title" placeholder="Titre">
 
-document.getElementById("gameFrame").src="";
+<input type="file" id="imageUpload">
 
-}
+<input id="url" placeholder="URL du jeu">
 
+<select id="category">
 
-function fullscreenGame(){
+<option value="Course">🏎️ Course</option>
+<option value="Arcade">🕹️ Arcade</option>
+<option value="Puzzle">🧩 Puzzle</option>
+<option value="E-sports">🏆 E-sports</option>
+<option value="Jeux.io">🌐 Jeux.io</option>
+<option value="Jeux Roblox">🧱 Roblox</option>
+<option value="Multijoueurs">👥 Multijoueurs</option>
+<option value="Tendances">🔥 Tendances</option>
 
-document.getElementById("gameFrame").requestFullscreen();
+</select>
 
-}
+<textarea id="description" placeholder="Description"></textarea>
 
+<button onclick="addGame()">Ajouter le jeu</button>
 
-function addGame(){
+<button onclick="closeAdmin()">Fermer</button>
 
-let title=document.getElementById("title").value;
+</div>
 
-let file=document.getElementById("imageUpload").files[0];
 
-let url=document.getElementById("url").value;
+<script src="script.js"></script>
 
-let description=document.getElementById("description").value;
-
-let category=document.getElementById("category").value;
-
-let reader=new FileReader();
-
-reader.onload=function(e){
-
-let game={
-
-title:title,
-image:e.target.result,
-url:url,
-description:description,
-category:category,
-plays:0
-
-};
-
-games.unshift(game);
-
-renderGames();
-
-};
-
-reader.readAsDataURL(file);
-
-}
-
-
-function deleteGame(index){
-
-if(confirm("Supprimer ce jeu ?")){
-
-games.splice(index,1);
-
-renderGames();
-
-}
-
-}
-
-
-function filterCategory(cat){
-
-let filtered=games.filter(game=>game.category===cat);
-
-renderGames(filtered);
-
-}
-
-
-function showAll(){
-
-renderGames();
-
-}
-
-
-function searchGame(){
-
-let input=document.getElementById("searchBar").value.toLowerCase();
-
-let filtered=games.filter(g=>g.title.toLowerCase().includes(input));
-
-renderGames(filtered);
-
-}
-
-
-function openAdmin(){
-
-let code=prompt("Code admin");
-
-if(code===ADMIN_CODE){
-
-admin=true;
-
-document.getElementById("adminPanel").classList.remove("hidden");
-
-renderGames();
-
-}else{
-
-alert("Code incorrect");
-
-}
-
-}
-
-
-function closeAdmin(){
-
-document.getElementById("adminPanel").classList.add("hidden");
-
-}
-
-
-renderGames();
+</body>
+</html>
